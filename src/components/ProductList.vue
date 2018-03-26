@@ -9,15 +9,18 @@
 
 <script>
   import shop from '@/api/shop'
+  import store from '@/store/index'
+
   export default {
-    data (){
-      return {
-        products: []
-      }
+   computed: {
+     //computed property will return the products from the state.
+     products () {
+       return store.getters.availableProducts
+     }
     },
     created () {
       shop.getProducts(products => {
-        this.products = products
+        store.commit('setProducts', products)
       })
     }
   }
